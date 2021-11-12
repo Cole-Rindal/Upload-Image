@@ -9,34 +9,30 @@
 </head>
 
 <body>
-  <main>
 
-    <input id="imgUpload" type="file" accept="image/*">
+  <img src="placeholder.png" id="imgPreview" alt="temp" width="400" height="400" referrerpolicy="no-referrer">
+  <input type="file" id="imgUpload" accept="image/*">
+  <p id="url"></p>
 
-    <img src="placeholder.png" id="imgPreview" alt="temp" width="400" height="400" referrerpolicy="no-referrer">
+  <script>
+      const imgUpload = document.getElementById("imgUpload")
+      const imgPreview = document.getElementById("imgPreview")
+      const url = document.getElementById("url")
+      imgUpload.addEventListener("change", ev => {
+          const formdata = new FormData()
+          formdata.append("image", ev.target.files[0])
+          fetch("https://api.imgur.com/3/image/", {
+              method: "post",
+              headers: {
+                  Authorization: "Client-ID 0f695d3611373b4"
+              },
+              body: formdata
+          }).then(data => data.json()).then(data => {
+              imgPreview.src = data.data.link
+              url.innerText = data.data.link
+          })
+      })
+  </script>
 
-    <script>
-      const imgUpload = document.getElementById("imgUpload");
-      const imgPreview = document.getElementById("imgPreview");
-      imgUpload.addEventListener("change", (event) => {
-        const formData = new FormData()
-        formData.append("image", event.target.files[0])
-        fetch("https://api.imgur.com/3/upload", 
-        {
-          method: "post",
-          headers: {
-            Authorization: environment.imgur_api_key
-          },
-          body: formData,
-          mode: "no-cors"
-        }).then(data => data.json()).then(data => {
-          imgPreview.src = data.data.link
-          imgPreview.alt = data.data.link
-        })
-      });
-    </script>
-
-  </main>
 </body>
-
 </html>
