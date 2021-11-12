@@ -15,6 +15,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Initalize Imgur API Key
-        run: echo $SECRETS_FILE_CONTENTS | base64 -d > lib/path/to/secrets.dart
         env:
           imgur_api_key: ${{ secrets.IMGUR_API_KEY }}
