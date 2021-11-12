@@ -25,7 +25,7 @@
         {
           method: "post",
           headers: {
-            Authorization: ${{ secrets.IMGUR_API_KEY }}
+            Authorization: env.imgur_api_key
           },
           body: formData,
           mode: "no-cors"
