@@ -15,5 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Initalize Imgur API Key
+        run: echo Initialized API Keys
         env:
           imgur_api_key: ${{ secrets.IMGUR_API_KEY }}
